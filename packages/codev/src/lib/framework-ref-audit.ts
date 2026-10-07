@@ -20,7 +20,6 @@
  *   - Only shell-fetch verbs (cat/cp/less/more/head/tail/source) reading a
  *     `codev/protocols/...` or `codev/roles/...` path are flagged.
  *   - `codev/resources/` is NOT scanned: it mixes framework docs with
- *     user-evolved files (`arch.md`, `lessons-learned.md`) that builders and
  *     architects reference and write by path legitimately.
  *   - Plain documentation references (backtick mentions, "see codev/…") are
  *     NOT flagged. The rule is about *fetching*, not *referencing* — the

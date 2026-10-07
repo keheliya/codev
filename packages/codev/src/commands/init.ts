@@ -121,7 +121,6 @@ export async function init(projectName?: string, options: InitOptions = {}): Pro
     fileCount++;
   }
 
-  // Materialize the cold-tier governance files (arch.md, lessons-learned.md) from the
   // skeleton's *.starter.md placeholders (issue #1012) so the first review-phase read
   // succeeds against a real file.
   for (const file of copyColdTierDefaults(targetDir, skeletonDir).copied) {

@@ -42,7 +42,6 @@ import { version as installedVersion } from '../version.js';
  *
  * Maintenance point: a new top-level framework subtree must be added here (same
  * shape as `PR_PRODUCING_PROTOCOLS` in pr-gate-audit). `codev/resources/` is
- * deliberately EXCLUDED — those are user-evolved files (arch.md, lessons-learned.md,
  * and their -critical companions), not framework files, and must never be flagged.
  */
 export const FRAMEWORK_DRIFT_DIRS = ['protocols', 'consult-types', 'roles'] as const;

@@ -56,11 +56,6 @@ Tests belong to the phase that creates the behaviour, not to a cleanup pass at t
 Retroactive tests document what was built; tests written alongside constrain what gets built.
 Mock external dependencies only — mocking the system under test proves the mock works.
 
-**Review** — compare the implementation against the specification, record lessons, and route new
-facts by tier: behaviour-changing and cross-cutting to `arch-critical.md` /
-`lessons-critical.md` (capped — displace a weaker entry rather than growing them), reference
-detail to `arch.md` / `lessons-learned.md`. The `update-arch-docs` skill encodes that routing.
-
 ## Consultation
 
 3-way consultation (Gemini, Codex, Claude) is **on by default** and runs at each phase's verify

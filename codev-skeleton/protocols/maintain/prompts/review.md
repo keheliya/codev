@@ -18,12 +18,6 @@ Both must pass. If either fails, fix before proceeding.
 
 ### 2. Verify Documentation Links
 
-```bash
-grep -oE '[a-zA-Z]+/[a-zA-Z/]+\.[a-z]+' codev/resources/arch.md | sort -u | while read f; do
-  [ -e "$f" ] || echo "Missing: $f"
-done
-```
-
 ### 3. Finalize Maintenance Run File
 
 Update `codev/maintain/NNNN.md` with:
@@ -55,11 +49,6 @@ export CODEV_PR_BODY="$(cat <<'PREOF'
 Closes #<N>  <!-- Only if this run was triggered by a GitHub issue. Use "Refs #<N>" for partial cleanup. -->
 
 ## Changes
-
-- Dead code removed: X items
-- Dependencies cleaned: Y packages
-- Documentation updated: arch.md / arch-critical.md, lessons-learned.md / lessons-critical.md (hot + cold tiers; hot caps + cold-doc maps policed)
-- Tests: all passing
 
 ## Test plan
 

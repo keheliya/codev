@@ -3,14 +3,21 @@
   "name": "spir",
   "alias": "spider",
   "version": "2.2.0",
-  "description": "SPIR: Specify → Plan → Implement → Review with build-verify cycles",
+  "description": "SPIR: Specify \u2192 Plan \u2192 Implement \u2192 Review with build-verify cycles",
   "input": {
     "type": "spec",
     "required": false,
-    "default_for": ["--project", "-p"]
+    "default_for": [
+      "--project",
+      "-p"
+    ]
   },
   "context_refresh": {
-    "on_enter": ["plan", "implement", "review"],
+    "on_enter": [
+      "plan",
+      "implement",
+      "review"
+    ],
     "on_plan_phase_advance": true
   },
   "phases": [
@@ -25,7 +32,11 @@
       },
       "verify": {
         "type": "spec",
-        "models": ["gemini", "codex", "claude"],
+        "models": [
+          "gemini",
+          "codex",
+          "claude"
+        ],
         "parallel": true
       },
       "checks": {
@@ -57,7 +68,11 @@
       },
       "verify": {
         "type": "plan",
-        "models": ["gemini", "codex", "claude"],
+        "models": [
+          "gemini",
+          "codex",
+          "claude"
+        ],
         "parallel": true
       },
       "max_iterations": 3,
@@ -84,7 +99,11 @@
       },
       "verify": {
         "type": "impl",
-        "models": ["gemini", "codex", "claude"],
+        "models": [
+          "gemini",
+          "codex",
+          "claude"
+        ],
         "parallel": true
       },
       "max_iterations": 3,
@@ -121,7 +140,11 @@
       },
       "verify": {
         "type": "pr",
-        "models": ["gemini", "codex", "claude"],
+        "models": [
+          "gemini",
+          "codex",
+          "claude"
+        ],
         "parallel": true
       },
       "max_iterations": 3,
@@ -133,14 +156,6 @@
         "pr_exists": {
           "command": "gh pr list --state all --head \"$(git branch --show-current)\" --json number --jq 'length' | grep -q '^[1-9]'",
           "description": "PR must be created before signaling completion"
-        },
-        "review_has_arch_updates": {
-          "command": "grep -q '## Architecture Updates' codev/reviews/${PROJECT_TITLE}.md",
-          "description": "Review must include '## Architecture Updates' section (what changed in arch.md, or why no changes needed)"
-        },
-        "review_has_lessons_updates": {
-          "command": "grep -q '## Lessons Learned Updates' codev/reviews/${PROJECT_TITLE}.md",
-          "description": "Review must include '## Lessons Learned Updates' section (what changed in lessons-learned.md, or why no changes needed)"
         },
         "e2e_tests": {
           "command": "npm run test:e2e 2>&1 || echo 'e2e tests skipped (not configured)'",
@@ -154,7 +169,7 @@
     {
       "id": "verify",
       "name": "Verify",
-      "description": "Post-merge environmental verification (optional — skip with porch verify --skip)",
+      "description": "Post-merge environmental verification (optional \u2014 skip with porch verify --skip)",
       "type": "once",
       "gate": "verify-approval",
       "next": null
@@ -179,7 +194,11 @@
     "mode": "strict",
     "max_iterations": 3,
     "verify": {
-      "models": ["gemini", "codex", "claude"],
+      "models": [
+        "gemini",
+        "codex",
+        "claude"
+      ],
       "parallel": true
     }
   }

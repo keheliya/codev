@@ -38,20 +38,6 @@ What was hard and how it resolved.
 
 Suggested improvements to the SPIR protocol or the tooling.
 
-## Architecture Updates
-
-What you routed where — HOT `codev/resources/arch-critical.md` (tiny, capped, always-injected) vs COLD `codev/resources/arch.md` (reference) — or why no change was needed. Note any hot-tier demotion made to respect the cap.
-
-- Routed: [hot | cold] — [fact] — [what changed]
-- Or: "No architecture updates needed — [reason]"
-
-## Lessons Learned Updates
-
-What you routed where — HOT `codev/resources/lessons-critical.md` (capped) vs COLD `codev/resources/lessons-learned.md` (reference) — or why no change was needed.
-
-- Routed: [hot | cold] — [category] — [lesson]
-- Or: "No lessons learned updates needed — [reason]"
-
 ## Flaky Tests
 
 Pre-existing tests skipped as flaky during this project — name, file path, observed failure mode. "No flaky tests encountered" if none.

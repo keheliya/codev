@@ -89,5 +89,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cluesmith/codev"
-  }
+  },
+  "humeVariant": "no-governance-memory-v1",
+  "humeUpstreamCommit": "f2d15fd8fec0a47474dbbc2db2d255a8a4afe747"
 }

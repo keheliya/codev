@@ -9,7 +9,6 @@
  * this is called from `/health` (tower-routes.ts), a hot Tower HTTP path.
  * `execFileSync` blocks the entire Node.js event loop for the duration of the
  * `ps` call, freezing every open terminal's WebSocket traffic — the exact
- * previously-fixed anti-pattern documented at lessons-learned.md:160
  * ("execSync in HTTP request handlers blocks the entire Node.js event loop").
  */
 
@@ -52,7 +51,6 @@ function parseCensus(out: string): ProcessCensusEntry[] {
  * (tower-routes.ts), a hot Tower HTTP path, so it must never block the event
  * loop — `execFileSync` would freeze every open terminal's WebSocket traffic
  * for the duration of the `ps` call, the exact previously-fixed anti-pattern
- * documented at lessons-learned.md:160. `util.promisify` is avoided because
  * `child_process.execFile` carries a built-in custom promisify resolving
  * `{stdout, stderr}` via a non-standard symbol that a test mock would need to
  * reproduce exactly to avoid silently promisifying to the wrong shape.

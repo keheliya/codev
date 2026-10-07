@@ -31,12 +31,6 @@ npx ts-prune 2>/dev/null || echo "ts-prune not available"
 # Unused dependencies
 npx depcheck 2>/dev/null || echo "depcheck not available"
 
-# Stale arch.md references
-grep -oE '[a-zA-Z]+/[a-zA-Z/]+\.[a-z]+' codev/resources/arch.md | sort -u | while read f; do
-  [ -e "$f" ] || echo "Missing: $f"
-done
-```
-
 Record all findings in the maintenance run file.
 
 ## Step 3: Clean
@@ -51,20 +45,9 @@ One removal at a time, verified after each — staging only the specific files t
 
 ## Step 4: Sync Documentation
 
-**arch.md / arch-critical.md** (Spec 987 two-tier): Read both, compare with actual codebase. Route behavior-changing invariants to the HOT `arch-critical.md` (respect its cap + keep its cold-doc map accurate); reference detail to the COLD `arch.md` (directory structure, component descriptions, key files, removals). Explain HOW things work, not just WHAT.
-
-**lessons-learned.md / lessons-critical.md** (two-tier): Scan `codev/reviews/` for new reviews since the base commit. **Route** each lesson — behavior-changing + cross-cutting → HOT `lessons-critical.md` (cap + displacement); reference recipe → COLD `lessons-learned.md`. Audit the hot caps + maps via the `update-arch-docs` skill.
-
 **CLAUDE.md / AGENTS.md**: `diff CLAUDE.md AGENTS.md` — they must be identical. Update the stale one.
 
 **Pruning**: Remove obsolete content. Document every deletion with justification (OBSOLETE, DUPLICATIVE, MOVED, VERBOSE). When in doubt, keep.
-
-Commit documentation changes:
-```bash
-git add codev/resources/arch.md codev/resources/arch-critical.md
-git add codev/resources/lessons-learned.md codev/resources/lessons-critical.md
-git commit -m "[Maintain] Update governance docs (hot + cold tiers)"
-```
 
 ## Step 5: Final Checks
 

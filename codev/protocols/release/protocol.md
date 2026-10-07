@@ -33,11 +33,6 @@ grep -E "status: (implementing|implemented|committed)" codev/projectlist.md
 
 ### 2. Run MAINTAIN Cycle
 
-Execute the MAINTAIN protocol to ensure:
-- Dead code is removed
-- Documentation is current (arch.md, lessons-learned.md)
-- CLAUDE.md and AGENTS.md are in sync
-
 ```bash
 # Review what MAINTAIN will do
 cat codev/protocols/maintain/protocol.md

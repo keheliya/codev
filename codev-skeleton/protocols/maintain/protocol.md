@@ -3,10 +3,6 @@
 Audit → Clean → Sync, in a single pass, then a PR. Two phases, one consultation during the
 maintain phase and one before the PR.
 
-Use it for dead code and unused dependencies, quarterly hygiene, pre-release cleanup, and
-keeping the governance docs honest — `arch.md`/`arch-critical.md`,
-`lessons-learned.md`/`lessons-critical.md`, and the `CLAUDE.md`↔`AGENTS.md` twins.
-
 ## The state machine
 
 ```json
@@ -28,12 +24,6 @@ search". Confirm each with a targeted grep before removing it.
 **Clean** — remove what you confirmed. Deletions go to `codev/maintain/.trash/` (gitignored,
 30-day retention) rather than straight out, so a wrong call is recoverable for a month rather
 than needing an archaeology session.
-
-**Sync documentation** — route facts by tier rather than appending: behaviour-changing and
-cross-cutting go to the capped hot files (displace a weaker entry rather than growing them),
-reference detail to the cold archives. The `update-arch-docs` skill encodes the routing matrix,
-the caps, and what does *not* belong in each tier. Keep `CLAUDE.md` and `AGENTS.md`
-byte-identical.
 
 ## The maintenance run file
 

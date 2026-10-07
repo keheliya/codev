@@ -21,23 +21,13 @@ Review the whole implementation, write the retrospective at `codev/reviews/{{art
 - **The implementation has been reviewed against the spec** — code quality, architecture fit, and security considered; deviations from the spec noted with their reasons; every success criterion accounted for.
 - **The review document exists** at `codev/reviews/{{artifact_name}}.md`, following the template below (its headings, its order — do not pattern-match an older review that predates it).
 - **Consultation feedback is captured.** The review carries a `## Consultation Feedback` section that, per phase / round / model, records each concern and its disposition — **Addressed** (changed), **Rebutted** (why it does not apply), or **N/A** (out of scope / handled elsewhere). "No concerns raised — all consultations approved" is the right line when that is true; note COMMENT verdicts and any `CONSULT_ERROR`. Read the consult outputs from `codev/projects/{{project_id}}-*/`.
-- **Governance facts are routed by tier** (see below).
 - **The PR exists before you signal**, with a close-keyword so merging auto-closes the issue (see below).
 
 ## Output
 
-Write the review to `codev/reviews/{{artifact_name}}.md` using the template below as its interface. Steps below expand its `## Consultation Feedback`, `## Architecture Updates`, and `## Lessons Learned Updates` sections; porch greps the produced file for the last two by exact heading.
+Write the review to `codev/reviews/{{artifact_name}}.md` using the template below as its interface. The consultation feedback section records how each concern was handled.
 
 {{> protocols/spir/templates/review.md}}
-
-## Route governance facts by tier (Spec 987)
-
-Each governance doc has two tiers. **Route** each new fact; do not simply append to the cold archive.
-
-- **HOT** — `codev/resources/arch-critical.md` and `lessons-critical.md`: tiny, hard-capped, always injected into every prompt and into CLAUDE.md/AGENTS.md. Add here only a **behavior-changing, cross-cutting** fact a future builder must know up front. The hot files are capped: if one is full, **demote** a weaker entry into its cold counterpart to make room, and keep the hot file's cold-doc map accurate.
-- **COLD** — `codev/resources/arch.md` and `lessons-learned.md`: full, on-demand reference for subsystem detail, file locations, one-offs, and spec-narrow recipes.
-
-The review's `## Architecture Updates` and `## Lessons Learned Updates` sections state what you routed where; if nothing qualifies, keep the heading with a one-line reason. Never grow a hot file past its cap by appending — route to cold or displace. The `update-arch-docs` skill encodes this discipline.
 
 ## Create the PR (before signaling)
 

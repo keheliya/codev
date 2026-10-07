@@ -14,7 +14,6 @@
  * `rc.initialPhase` is true (`Terminal.tsx`) — for a session's entire steady-state life that
  * filter is off, and the VS Code webview and mobile clients never had one at all. (`afx
  * attach` is not in scope either way: it writes the shellper socket directly, so neither its
- * keystrokes nor its replies ever pass through `PtySession.write()` — see arch.md §5.)
  * Counting a reply as human input would produce a hold with nobody at the keyboard, and
  * worse, a SELF-TRIP: our own delivery write repaints the TUI, the TUI queries geometry, the
  * browser answers, and the answer reads as a keystroke that blocks the next delivery. So the

@@ -4,7 +4,7 @@ You are executing the **REVIEW** phase of the PIR protocol.
 
 ## Your Goal
 
-Write a retrospective at `codev/reviews/{{artifact_name}}.md` including **Summary**, **Architecture Updates**, and **Lessons Learned Updates** sections. Push, open a PR using the review file as the PR body, record the PR with porch, then signal completion — **porch runs 3-way consultation (Gemini, Codex, Claude) once** via the verify block. The consultation is a *single advisory pass* (`max_iterations: 1`): its verdicts are surfaced to the human at the `pr` gate, **not** an iterate-until-APPROVE loop. After the single pass the `pr` gate fires regardless of verdict; you notify the architect (leading with any REQUEST_CHANGES) and wait at the gate while the human merges on GitHub.
+Write a retrospective at `codev/reviews/{{artifact_name}}.md` including a **Summary** and implementation retrospective. Push, open a PR using the review file as the PR body, record the PR with porch, then signal completion — **porch runs 3-way consultation (Gemini, Codex, Claude) once** via the verify block. The consultation is a *single advisory pass* (`max_iterations: 1`): its verdicts are surfaced to the human at the `pr` gate, **not** an iterate-until-APPROVE loop. After the single pass the `pr` gate fires regardless of verdict; you notify the architect (leading with any REQUEST_CHANGES) and wait at the gate while the human merges on GitHub.
 
 The retrospective ships with the merged PR — it's durable team knowledge, searchable in `codev/reviews/` on `main`.
 
@@ -56,16 +56,6 @@ Output of `git log main..HEAD --oneline`:
 - `npm test`: ✓ pass (X tests, Y new)
 - Manual verification: <what was verified, on what platforms — pulled from the human's review at the dev-approval gate if known>
 
-## Architecture Updates
-
-What you routed where, across the **two tiers** (Spec 987): **HOT** = `codev/resources/arch-critical.md` (tiny, hard-capped, always-injected) for a behavior-changing cross-cutting fact (demote a weaker entry into `arch.md` if the hot file is full); **COLD** = `codev/resources/arch.md` for reference detail. Update the file(s) you routed to in this same commit. If nothing qualifies, write a single line explaining why: "No arch changes — this PR fixes a typo without affecting module boundaries."
-
-Use the `update-arch-docs` skill if available (`.claude/skills/update-arch-docs/SKILL.md`) — it encodes the discipline for what NOT to include in arch docs and how the hot/cold tiers relate.
-
-## Lessons Learned Updates
-
-What durable wisdom emerged, routed by tier: **HOT** `codev/resources/lessons-critical.md` for a behavior-changing cross-cutting rule (cap + displacement); **COLD** `codev/resources/lessons-learned.md` for a spec-narrow recipe/reference tip. Update the file(s) you routed to in this commit. If nothing qualifies: "No lessons captured — change was mechanical."
-
 ## Things to Look At During PR Review
 
 Tricky spots the PR reviewer should focus on. Honest — if a section was hard to get right, flag it.
@@ -85,22 +75,9 @@ List any tests you skipped due to pre-existing flakiness, with file:line refs an
 
 ### 2. Update Architecture / Lessons Docs (if applicable)
 
-If your "Architecture Updates" or "Lessons Learned Updates" section routed real changes, update the tier you chose — `arch-critical.md` / `lessons-critical.md` (hot, capped) or `arch.md` / `lessons-learned.md` (cold) — accordingly. Use the `update-arch-docs` skill if it's available.
-
 If neither doc needs updating, your review file's sections still need to explain why — the porch `checks` block enforces section presence.
 
 ### 3. Commit the Review File (and arch / lessons updates)
-
-```bash
-git add codev/reviews/{{artifact_name}}.md
-# Add the governance file(s) you routed to, only if changed
-git add codev/resources/arch-critical.md      # hot — only if changed
-git add codev/resources/lessons-critical.md   # hot — only if changed
-git add codev/resources/arch.md               # cold — only if changed
-git add codev/resources/lessons-learned.md    # cold — only if changed
-git commit -m "[PIR #{{issue.number}}] Review + retrospective"
-git push
-```
 
 ### 4. Open the PR
 
@@ -245,7 +222,6 @@ Together with the `--pr` record from step 4a and the `--merged` record from step
 - Don't skip porch's PR/merge records (steps 4a, 9). The `--pr` record (step 4a) lets the gate-pending state link to the actual PR; the `--merged` record (step 9) closes the lifecycle in porch state. Skipping either leaves `history:` empty and downstream tooling blind.
 - Don't run `porch approve` for any gate on your own initiative — only when the architect relays the human's approval
 - Don't push to the default branch — only merge via PR
-- Don't skip the Architecture Updates / Lessons Learned sections — porch checks enforce their presence (the section must exist; explaining "no changes needed" in one line is fine)
 - **Don't run `consult` commands yourself** — porch handles consultations via the `verify` block. Manually invoking `consult` causes the consultation to run twice.
 - **Don't fix, skip, or quarantine pre-existing failures unrelated to your change.** Porch's `checks` for this phase are narrow *structural* gates (`pr_exists`, review-section presence) — a green gate does **not** certify the wider build/test suite. If the broader suite surfaces failures your diff did not cause, they are out of scope: note them in the review's Lessons Learned / Things to Look At and proceed. Touching another team's tests to make an unrelated red go green is scope creep, not diligence.
 
